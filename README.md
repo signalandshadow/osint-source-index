@@ -142,6 +142,6 @@ Issue counter: `meta.issue` increments with each material update. Current issue 
 
 ## Acknowledgements
 
-The Index is built and maintained by [Derek Bowler](https://signalandshadow.io). Many entries draw on prior open-source work by Bellingcat, Forensic Architecture, the Berkeley Protocol, and the broader OSINT community.
+The Index is built and maintained by Signal & Shadow. Many entries draw on prior open-source work by Bellingcat, Forensic Architecture, the Berkeley Protocol, and the broader OSINT community.
 
 For methodology, voice, and editorial standards see [signalandshadow.io](https://signalandshadow.io).
