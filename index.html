@@ -51,7 +51,7 @@
   button { font-family: inherit; cursor: pointer; }
   mark { background: var(--gold-bg); color: inherit; border-radius: 3px; padding: 0 1px; }
 
-  .wrap { max-width: 880px; margin: 0 auto; padding: 20px 18px 56px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 18px 56px; }
 
   .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 
@@ -65,7 +65,15 @@
   .id-strip strong { color: var(--ink-soft); font-weight: 500; }
 
   /* Quick find panel */
-  .qf-panel { padding: 24px 24px 20px; }
+  .qf-panel {
+    padding: 24px 24px 20px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 620px 260px at 12% -10%, rgba(75, 49, 120, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 500px 220px at 100% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 55%),
+      var(--surface);
+    background-clip: border-box, border-box, border-box;
+  }
   .qf-title { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
   .qf-sub { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 18px; }
 
@@ -118,18 +126,29 @@
   .qf-lead { font-size: 13px; color: var(--ink-faint); margin-right: 2px; }
   .filter-btn {
     position: relative;
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 7px;
     font-size: 13px; font-weight: 600; color: var(--ink);
     background: var(--bg); border: 1px solid var(--border);
-    border-radius: var(--radius-pill); padding: 8px 14px;
-    transition: border-color 0.15s;
+    border-radius: var(--radius-pill); padding: 8px 14px 8px 12px;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   }
-  .filter-btn:hover { border-color: var(--accent); }
+  .filter-btn .fi { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .filter-btn .fi svg { width: 10px; height: 10px; }
+  .filter-btn.country { background: rgba(37, 99, 235, 0.06); border-color: rgba(37, 99, 235, 0.18); }
+  .filter-btn.country .fi { background: rgba(37, 99, 235, 0.14); color: #2563EB; }
+  .filter-btn.category { background: rgba(217, 119, 6, 0.07); border-color: rgba(217, 119, 6, 0.2); }
+  .filter-btn.category .fi { background: rgba(217, 119, 6, 0.16); color: #B45309; }
+  .filter-btn.risk { background: var(--danger-bg); border-color: rgba(220, 38, 38, 0.2); }
+  .filter-btn.risk .fi { background: rgba(220, 38, 38, 0.14); color: var(--danger-ink); }
+  .filter-btn:hover { box-shadow: 0 2px 8px rgba(23,19,31,0.08); }
   .filter-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active .fi { background: var(--accent); color: #fff; }
   .filter-btn.risk.active { background: var(--danger-bg); border-color: var(--danger-ink); color: var(--danger-ink); }
-  .filter-btn svg { width: 12px; height: 12px; }
+  .filter-btn.risk.active .fi { background: var(--danger-ink); color: #fff; }
+  .filter-btn .chev { width: 12px; height: 12px; }
   .filter-btn .x { margin-left: 2px; color: var(--ink-faint); }
   .filter-btn.active .x { color: inherit; }
+  .flag { margin-right: 2px; }
 
   .filter-popover {
     display: none;
@@ -151,6 +170,8 @@
   .fp-item .count { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); }
   .fp-item.sel .count { color: var(--accent); }
   .fp-empty { font-size: 11px; color: var(--ink-faint); padding: 8px 9px; }
+  .fp-item .label-row { display: flex; align-items: center; gap: 7px; }
+  .fp-item .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
   /* Utility row */
   .utility-row { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; font-size: 12px; color: var(--ink-faint); margin: 14px 2px 0; }
@@ -215,8 +236,11 @@
   .entry-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
   .entry-name { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
   .entry-native { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
-  .entry-meta-line { font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
-  .entry-meta-line .sep { color: var(--ink-faint); margin: 0 5px; }
+  .entry-meta-line { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
+  .entry-meta-line .sep { color: var(--ink-faint); }
+  .cat-chip { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; font-size: 11.5px; padding: 2px 9px 2px 7px; border-radius: var(--radius-pill); }
+  .cat-chip .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .loc-line { display: inline-flex; align-items: center; gap: 5px; }
 
   .pill { display: inline-flex; align-items: center; font-family: var(--mono); font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 3px 9px; border-radius: var(--radius-pill); }
   .pill.success { background: var(--success-bg); color: var(--success-ink); }
@@ -335,9 +359,10 @@
       <span class="qf-lead">Filter:</span>
 
       <div style="position:relative;">
-        <button class="filter-btn" id="country-btn" type="button">
+        <button class="filter-btn country" id="country-btn" type="button">
+          <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></span>
           <span id="country-btn-label">Country</span>
-          <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+          <svg class="chev" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
         </button>
         <div class="filter-popover" id="country-popover">
           <input class="fp-search" id="country-fp-search" type="text" placeholder="Type a country...">
@@ -346,9 +371,10 @@
       </div>
 
       <div style="position:relative;">
-        <button class="filter-btn" id="category-btn" type="button">
+        <button class="filter-btn category" id="category-btn" type="button">
+          <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.59 13.41L11 3.83A2 2 0 009.59 3.24L4 3a1 1 0 00-1 1l.24 5.59a2 2 0 00.59 1.41l9.58 9.58a2 2 0 002.82 0l4.36-4.36a2 2 0 000-2.82z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
           <span id="category-btn-label">Category</span>
-          <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+          <svg class="chev" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
         </button>
         <div class="filter-popover" id="category-popover">
           <div class="fp-list" id="category-fp-list"></div>
@@ -357,8 +383,9 @@
 
       <div style="position:relative;">
         <button class="filter-btn risk" id="risk-btn" type="button">
+          <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>
           <span id="risk-btn-label">Risk flag</span>
-          <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+          <svg class="chev" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
         </button>
         <div class="filter-popover" id="risk-popover">
           <div class="fp-list" id="risk-fp-list"></div>
@@ -498,6 +525,33 @@
   };
   const SEVERE_FLAGS = new Set(['conflict_party', 'propaganda_outlet', 'terrorism_designation']);
 
+  // One accent colour per category, used for the category filter, popover
+  // dots, and the coloured chip on each result row and detail view.
+  const CATEGORY_COLORS = {
+    government: '#4B3178',
+    law_enforcement: '#2563EB',
+    military: '#B91C1C',
+    media: '#C2410C',
+    diplomatic: '#0F766E',
+    ngo: '#15803D',
+    emergency: '#BE185D',
+    judiciary: '#4338CA',
+    legislature: '#7E22CE',
+    political_party: '#A21CAF',
+    individual: '#475569',
+    infrastructure: '#92400E',
+    space: '#1E3A8A',
+    sports: '#4D7C0F',
+    other: '#6B6480'
+  };
+  function catColor(cat) { return CATEGORY_COLORS[cat] || CATEGORY_COLORS.other; }
+  function catTint(cat) { return catColor(cat) + '1A'; } // ~10% alpha tint for backgrounds
+  function catChip(cat) {
+    const label = (cat || 'other').replace(/_/g, ' ');
+    const color = catColor(cat);
+    return `<span class="cat-chip" style="background:${color}1A;color:${color}"><span class="dot" style="background:${color}"></span>${label}</span>`;
+  }
+
   function daysSince(dateStr) {
     if (!dateStr) return null;
     const d = new Date(dateStr);
@@ -535,7 +589,7 @@
     return state.showStubs ? data : data.filter(e => e.verification_status === 'verified');
   }
 
-  const COUNTRY_FLAGS = {"Abkhazia":null,"Afghanistan":"🇦🇫","Albania":"🇦🇱","Algeria":"🇩🇿","Andorra":"🇦🇩","Angola":"🇦🇴","Antigua and Barbuda":"🇦🇬","Argentina":"🇦🇷","Armenia":"🇦🇲","Australia":"🇦🇺","Austria":"🇦🇹","Azerbaijan":"🇦🇿","Bahamas":"🇧🇸","Bahrain":"🇧🇭","Bangladesh":"🇧🇩","Barbados":"🇧🇧","Belarus":"🇧🇾","Belgium":"🇧🇪","Belize":"🇧🇿","Benin":"🇧🇯","Bhutan":"🇧🇹","Bolivia":"🇧🇴","Bosnia and Herzegovina":"🇧🇦","Botswana":"🇧🇼","Brazil":"🇧🇷","Brunei":"🇧🇳","Bulgaria":"🇧🇬","Burkina Faso":"🇧🇫","Burundi":"🇧🇮","Cambodia":"🇰🇭","Cameroon":"🇨🇲","Canada":"🇨🇦","Cape Verde":"🇨🇻","Central African Republic":"🇨🇫","Chad":"🇹🇩","Chile":"🇨🇱","China":"🇨🇳","Colombia":"🇨🇴","Comoros":"🇰🇲","Cook Islands":"🇨🇰","Costa Rica":"🇨🇷","Croatia":"🇭🇷","Cuba":"🇨🇺","Cyprus":"🇨🇾","Czech Republic":"🇨🇿","Czechia":"🇨🇿","Côte d'Ivoire":"🇨🇮","Democratic Republic of the Congo":"🇨🇩","Denmark":"🇩🇰","Djibouti":"🇩🇯","Dominica":"🇩🇲","Dominican Republic":"🇩🇴","Ecuador":"🇪🇨","Egypt":"🇪🇬","El Salvador":"🇸🇻","Equatorial Guinea":"🇬🇶","Eritrea":"🇪🇷","Estonia":"🇪🇪","Eswatini":"🇸🇿","Ethiopia":"🇪🇹","Federated States of Micronesia":"🇫🇲","Fiji":"🇫🇯","Finland":"🇫🇮","France":"🇫🇷","Gabon":"🇬🇦","Gambia":"🇬🇲","Georgia":"🇬🇪","Germany":"🇩🇪","Ghana":"🇬🇭","Greece":"🇬🇷","Greenland":"🇬🇱","Grenada":"🇬🇩","Guadeloupe":"🇬🇵","Guatemala":"🇬🇹","Guernsey":"🇬🇬","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼","Guyana":"🇬🇾","Haiti":"🇭🇹","Holy See (Vatican City State)":"🇻🇦","Honduras":"🇭🇳","Hong Kong":"🇭🇰","Hungary":"🇭🇺","Iceland":"🇮🇸","India":"🇮🇳","Indonesia":"🇮🇩","International":null,"Iran":"🇮🇷","Iraq":"🇮🇶","Ireland":"🇮🇪","Isle of Man":"🇮🇲","Israel":"🇮🇱","Italy":"🇮🇹","Jamaica":"🇯🇲","Jammu & Kashmir":null,"Japan":"🇯🇵","Jersey":"🇯🇪","Jordan":"🇯🇴","Kazakhstan":"🇰🇿","Kenya":"🇰🇪","Kiribati":"🇰🇮","Kosovo":"🇽🇰","Kuwait":"🇰🇼","Kyrgyzstan":"🇰🇬","Laos":"🇱🇦","Latvia":"🇱🇻","Lebanon":"🇱🇧","Lesotho":"🇱🇸","Liberia":"🇱🇷","Libya":"🇱🇾","Liechtenstein":"🇱🇮","Lithuania":"🇱🇹","Luxembourg":"🇱🇺","Madagascar":"🇲🇬","Malawi":"🇲🇼","Malaysia":"🇲🇾","Maldives":"🇲🇻","Mali":"🇲🇱","Malta":"🇲🇹","Marshall Islands":"🇲🇭","Mauritania":"🇲🇷","Mauritius":"🇲🇺","Mexico":"🇲🇽","Migrant rescue":null,"Moldova":"🇲🇩","Monaco":"🇲🇨","Mongolia":"🇲🇳","Montenegro":"🇲🇪","Morocco":"🇲🇦","Mozambique":"🇲🇿","Myanmar":"🇲🇲","NGOs (cross-border)":null,"Namibia":"🇳🇦","Nauru":"🇳🇷","Nepal":"🇳🇵","Netherlands":"🇳🇱","New Zealand":"🇳🇿","Nicaragua":"🇳🇮","Niger":"🇳🇪","Nigeria":"🇳🇬","Niue":"🇳🇺","North Korea":"🇰🇵","North Macedonia":"🇲🇰","Northern Cyprus":null,"Norway":"🇳🇴","Oman":"🇴🇲","Pakistan":"🇵🇰","Palau":"🇵🇼","Palestine":"🇵🇸","Panama":"🇵🇦","Papua New Guinea":"🇵🇬","Paraguay":"🇵🇾","Peru":"🇵🇪","Philippines":"🇵🇭","Poland":"🇵🇱","Portugal":"🇵🇹","Qatar":"🇶🇦","Republic of the Congo":"🇨🇬","Romania":"🇷🇴","Russia":"🇷🇺","Rwanda":"🇷🇼","Sahrawi Arab Democratic Republic":null,"Saint Kitts and Nevis":"🇰🇳","Saint Lucia":"🇱🇨","Saint Vincent and the Grenadines":"🇻🇨","Samoa":"🇼🇸","San Marino":"🇸🇲","Saudi Arabia":"🇸🇦","Senegal":"🇸🇳","Serbia":"🇷🇸","Seychelles":"🇸🇨","Sierra Leone":"🇸🇱","Singapore":"🇸🇬","Slovakia":"🇸🇰","Slovenia":"🇸🇮","Solomon Islands":"🇸🇧","Somalia":"🇸🇴","Somaliland":null,"South Africa":"🇿🇦","South Korea":"🇰🇷","South Ossetia":null,"South Sudan":"🇸🇸","Spain":"🇪🇸","Sri Lanka":"🇱🇰","Sudan":"🇸🇩","Suriname":"🇸🇷","Sweden":"🇸🇪","Switzerland":"🇨🇭","Syria":"🇸🇾","São Tomé and Príncipe":"🇸🇹","Taiwan":"🇹🇼","Tajikistan":"🇹🇯","Tanzania":"🇹🇿","Thailand":"🇹🇭","Timor-Leste":"🇹🇱","Togo":"🇹🇬","Tonga":"🇹🇴","Transnistria":null,"Trinidad and Tobago":"🇹🇹","Tunisia":"🇹🇳","Turkmenistan":"🇹🇲","Tuvalu":"🇹🇻","Türkiye":"🇹🇷","Uganda":"🇺🇬","Ukraine":"🇺🇦","United Arab Emirates":"🇦🇪","United Kingdom":"🇬🇧","United States":"🇺🇸","Uruguay":"🇺🇾","Uzbekistan":"🇺🇿","Vanuatu":"🇻🇺","Vatican":"🇻🇦","Vatican City":"🇻🇦","Venezuela":"🇻🇪","Vietnam":"🇻🇳","Yemen":"🇾🇪","Zambia":"🇿🇲","Zimbabwe":"🇿🇼"};
+  const COUNTRY_FLAGS = {"Afghanistan": "🇦🇫", "Albania": "🇦🇱", "Algeria": "🇩🇿", "Andorra": "🇦🇩", "Angola": "🇦🇴", "Antigua and Barbuda": "🇦🇬", "Argentina": "🇦🇷", "Armenia": "🇦🇲", "Australia": "🇦🇺", "Austria": "🇦🇹", "Azerbaijan": "🇦🇿", "Bahamas": "🇧🇸", "Bahrain": "🇧🇭", "Bangladesh": "🇧🇩", "Barbados": "🇧🇧", "Belarus": "🇧🇾", "Belgium": "🇧🇪", "Belize": "🇧🇿", "Benin": "🇧🇯", "Bhutan": "🇧🇹", "Bolivia": "🇧🇴", "Bosnia and Herzegovina": "🇧🇦", "Botswana": "🇧🇼", "Brazil": "🇧🇷", "Brunei": "🇧🇳", "Bulgaria": "🇧🇬", "Burkina Faso": "🇧🇫", "Burundi": "🇧🇮", "Cambodia": "🇰🇭", "Cameroon": "🇨🇲", "Canada": "🇨🇦", "Cape Verde": "🇨🇻", "Central African Republic": "🇨🇫", "Chad": "🇹🇩", "Chile": "🇨🇱", "China": "🇨🇳", "Colombia": "🇨🇴", "Comoros": "🇰🇲", "Cook Islands": "🇨🇰", "Costa Rica": "🇨🇷", "Croatia": "🇭🇷", "Cuba": "🇨🇺", "Cyprus": "🇨🇾", "Czech Republic": "🇨🇿", "Czechia": "🇨🇿", "Côte d'Ivoire": "🇨🇮", "Democratic Republic of the Congo": "🇨🇩", "Denmark": "🇩🇰", "Djibouti": "🇩🇯", "Dominica": "🇩🇲", "Dominican Republic": "🇩🇴", "Ecuador": "🇪🇨", "Egypt": "🇪🇬", "El Salvador": "🇸🇻", "Equatorial Guinea": "🇬🇶", "Eritrea": "🇪🇷", "Estonia": "🇪🇪", "Eswatini": "🇸🇿", "Ethiopia": "🇪🇹", "Federated States of Micronesia": "🇫🇲", "Fiji": "🇫🇯", "Finland": "🇫🇮", "France": "🇫🇷", "Gabon": "🇬🇦", "Gambia": "🇬🇲", "Georgia": "🇬🇪", "Germany": "🇩🇪", "Ghana": "🇬🇭", "Greece": "🇬🇷", "Greenland": "🇬🇱", "Grenada": "🇬🇩", "Guadeloupe": "🇬🇵", "Guatemala": "🇬🇹", "Guernsey": "🇬🇬", "Guinea": "🇬🇳", "Guinea-Bissau": "🇬🇼", "Guyana": "🇬🇾", "Haiti": "🇭🇹", "Holy See (Vatican City State)": "🇻🇦", "Honduras": "🇭🇳", "Hong Kong": "🇭🇰", "Hungary": "🇭🇺", "Iceland": "🇮🇸", "India": "🇮🇳", "Indonesia": "🇮🇩", "Iran": "🇮🇷", "Iraq": "🇮🇶", "Ireland": "🇮🇪", "Isle of Man": "🇮🇲", "Israel": "🇮🇱", "Italy": "🇮🇹", "Jamaica": "🇯🇲", "Japan": "🇯🇵", "Jersey": "🇯🇪", "Jordan": "🇯🇴", "Kazakhstan": "🇰🇿", "Kenya": "🇰🇪", "Kiribati": "🇰🇮", "Kosovo": "🇽🇰", "Kuwait": "🇰🇼", "Kyrgyzstan": "🇰🇬", "Laos": "🇱🇦", "Latvia": "🇱🇻", "Lebanon": "🇱🇧", "Lesotho": "🇱🇸", "Liberia": "🇱🇷", "Libya": "🇱🇾", "Liechtenstein": "🇱🇮", "Lithuania": "🇱🇹", "Luxembourg": "🇱🇺", "Madagascar": "🇲🇬", "Malawi": "🇲🇼", "Malaysia": "🇲🇾", "Maldives": "🇲🇻", "Mali": "🇲🇱", "Malta": "🇲🇹", "Marshall Islands": "🇲🇭", "Mauritania": "🇲🇷", "Mauritius": "🇲🇺", "Mexico": "🇲🇽", "Moldova": "🇲🇩", "Monaco": "🇲🇨", "Mongolia": "🇲🇳", "Montenegro": "🇲🇪", "Morocco": "🇲🇦", "Mozambique": "🇲🇿", "Myanmar": "🇲🇲", "Namibia": "🇳🇦", "Nauru": "🇳🇷", "Nepal": "🇳🇵", "Netherlands": "🇳🇱", "New Zealand": "🇳🇿", "Nicaragua": "🇳🇮", "Niger": "🇳🇪", "Nigeria": "🇳🇬", "Niue": "🇳🇺", "North Korea": "🇰🇵", "North Macedonia": "🇲🇰", "Norway": "🇳🇴", "Oman": "🇴🇲", "Pakistan": "🇵🇰", "Palau": "🇵🇼", "Palestine": "🇵🇸", "Panama": "🇵🇦", "Papua New Guinea": "🇵🇬", "Paraguay": "🇵🇾", "Peru": "🇵🇪", "Philippines": "🇵🇭", "Poland": "🇵🇱", "Portugal": "🇵🇹", "Qatar": "🇶🇦", "Republic of the Congo": "🇨🇬", "Romania": "🇷🇴", "Russia": "🇷🇺", "Rwanda": "🇷🇼", "Saint Kitts and Nevis": "🇰🇳", "Saint Lucia": "🇱🇨", "Saint Vincent and the Grenadines": "🇻🇨", "Samoa": "🇼🇸", "San Marino": "🇸🇲", "Saudi Arabia": "🇸🇦", "Senegal": "🇸🇳", "Serbia": "🇷🇸", "Seychelles": "🇸🇨", "Sierra Leone": "🇸🇱", "Singapore": "🇸🇬", "Slovakia": "🇸🇰", "Slovenia": "🇸🇮", "Solomon Islands": "🇸🇧", "Somalia": "🇸🇴", "South Africa": "🇿🇦", "South Korea": "🇰🇷", "Spain": "🇪🇸", "Sri Lanka": "🇱🇰", "Sudan": "🇸🇩", "Suriname": "🇸🇷", "Sweden": "🇸🇪", "Switzerland": "🇨🇭", "Syria": "🇸🇾", "São Tomé and Príncipe": "🇸🇹", "Taiwan": "🇹🇼", "Tajikistan": "🇹🇯", "Tanzania": "🇹🇿", "Thailand": "🇹🇭", "Timor-Leste": "🇹🇱", "Togo": "🇹🇬", "Tonga": "🇹🇴", "Trinidad and Tobago": "🇹🇹", "Tunisia": "🇹🇳", "Turkmenistan": "🇹🇲", "Tuvalu": "🇹🇻", "Türkiye": "🇹🇷", "Uganda": "🇺🇬", "Ukraine": "🇺🇦", "United Arab Emirates": "🇦🇪", "United Kingdom": "🇬🇧", "United States": "🇺🇸", "Uruguay": "🇺🇾", "Uzbekistan": "🇺🇿", "Vanuatu": "🇻🇺", "Vatican": "🇻🇦", "Vatican City": "🇻🇦", "Venezuela": "🇻🇪", "Vietnam": "🇻🇳", "Yemen": "🇾🇪", "Zambia": "🇿🇲", "Zimbabwe": "🇿🇼", "South Sudan": "🇸🇸"};
   function flagFor(country) {
     if (!country) return '';
     const f = COUNTRY_FLAGS[country];
@@ -707,7 +761,7 @@
     src.forEach(e => { const c = e.category || 'other'; counts[c] = (counts[c] || 0) + 1; });
     const rows = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([c, n]) => {
       const sel = state.category === c ? 'sel' : '';
-      return `<div class="fp-item ${sel}" data-v="${c}"><span>${c.replace(/_/g, ' ')}</span><span class="count">${n}</span></div>`;
+      return `<div class="fp-item ${sel}" data-v="${c}"><span class="label-row"><span class="cat-dot" style="background:${catColor(c)}"></span>${c.replace(/_/g, ' ')}</span><span class="count">${n}</span></div>`;
     }).join('');
     els.categoryFpList.innerHTML = rows || '<div class="fp-empty">None</div>';
     els.categoryFpList.querySelectorAll('[data-v]').forEach(el => {
@@ -727,7 +781,8 @@
     src.forEach(e => (e.risk_flags || []).forEach(f => { counts[f] = (counts[f] || 0) + 1; }));
     const rows = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([f, n]) => {
       const sel = state.riskFlag === f ? 'sel' : '';
-      return `<div class="fp-item ${sel}" data-v="${f}"><span>${RISK_LABELS[f] || f}</span><span class="count">${n}</span></div>`;
+      const dotColor = SEVERE_FLAGS.has(f) ? '#DC2626' : '#B45309';
+      return `<div class="fp-item ${sel}" data-v="${f}"><span class="label-row"><span class="cat-dot" style="background:${dotColor}"></span>${RISK_LABELS[f] || f}</span><span class="count">${n}</span></div>`;
     }).join('');
     els.riskFpList.innerHTML = rows || '<div class="fp-empty">No flags in current pool</div>';
     els.riskFpList.querySelectorAll('[data-v]').forEach(el => {
@@ -742,10 +797,12 @@
   }
 
   function updateFilterButtons() {
-    els.countryBtnLabel.textContent = state.country || 'Country';
+    els.countryBtnLabel.innerHTML = state.country ? (flagFor(state.country) + state.country) : 'Country';
     els.countryBtn.classList.toggle('active', !!state.country);
     els.categoryBtnLabel.textContent = state.category ? state.category.replace(/_/g, ' ') : 'Category';
     els.categoryBtn.classList.toggle('active', !!state.category);
+    if (state.category) { els.categoryBtn.style.color = catColor(state.category); els.categoryBtn.querySelector('.fi').style.background = catColor(state.category); els.categoryBtn.querySelector('.fi').style.color = '#fff'; els.categoryBtn.style.borderColor = catColor(state.category); els.categoryBtn.style.background = catTint(state.category); }
+    else { els.categoryBtn.style.color = ''; els.categoryBtn.style.borderColor = ''; els.categoryBtn.style.background = ''; const fi = els.categoryBtn.querySelector('.fi'); fi.style.background = ''; fi.style.color = ''; }
     els.riskBtnLabel.textContent = state.riskFlag ? (RISK_LABELS[state.riskFlag] || state.riskFlag) : 'Risk flag';
     els.riskBtn.classList.toggle('active', !!state.riskFlag);
   }
@@ -785,7 +842,7 @@
           </span>`).join('')
       : '<span class="acct-none">No accounts on record</span>';
     const locationText = [e.subdivision, e.country].filter(Boolean).join(', ') || 'Unassigned';
-    const metaLine = `${(e.category || 'other').replace(/_/g, ' ')}<span class="sep">·</span>${flagFor(e.country)}${locationText}`;
+    const metaLine = `${catChip(e.category)}<span class="sep">·</span><span class="loc-line">${flagFor(e.country)}${locationText}</span>`;
     return `
       <div class="entry ${e.verification_status === 'stub' ? 'stub' : ''}">
         <button class="entry-pin ${isPinned(e.entity_id) ? 'on' : ''}" data-pin="${e.entity_id}" title="Pin this source" type="button">
@@ -899,7 +956,7 @@
     provRows.push(['Accounts verified', e.accounts_verified_at || 'Not yet verified']);
 
     els.modalBody.innerHTML = `
-      <div class="modal-eyebrow">${(e.category || 'other').replace(/_/g, ' ')} · ${flagFor(e.country)}${e.country || 'Unassigned'}</div>
+      <div class="modal-eyebrow">${catChip(e.category)} <span class="sep">·</span> ${flagFor(e.country)}${e.country || 'Unassigned'}</div>
       <div class="modal-name">${highlight(e.entity_name, tokens)}</div>
       ${e.native_name ? `<div class="modal-native">${highlight(e.native_name, tokens)}</div>` : ''}
       <div class="modal-pills">${stubHtml}${riskHtml}</div>
